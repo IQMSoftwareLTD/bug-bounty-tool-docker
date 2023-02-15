@@ -11,7 +11,7 @@ services:
       - "tooling"
     environment:
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=Sup3rdupa
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=__YOUR_PASSWORD_HERE__
       - ASPNETCORE_HTTPS_PORT=8001
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
   db:
@@ -20,15 +20,14 @@ services:
     ports:
       - "1433:1433"
     environment:
-      MSSQL_SA_PASSWORD: "__YOUR_PASSWORD_HERE"
+      MSSQL_SA_PASSWORD: "__YOUR_PASSWORD_HERE__"
       ACCEPT_EULA: "Y"
     volumes:
-      - "C:/data/bug_bounty_data/data:/var/opt/mssql/data"
-      - "C:/data/bug_bounty_data/log:/var/opt/mssql/log"
-      - "C:/data/bug_bounty_data/secrets:/var/opt/mssql/secrets"
+      - "__YOUR_DATA_LOCATION_HERE__/data:/var/opt/mssql/data"
+      - "__YOUR_DATA_LOCATION_HERE__/log:/var/opt/mssql/log"
+      - "__YOUR_DATA_LOCATION_HERE__/secrets:/var/opt/mssql/secrets"
   tooling:
     container_name: bug-bounty-tooling
     image: iqmsoftware/bug-bounty-tooling:latest
     ports:
       - "22:22"    
-Sup3rdupa

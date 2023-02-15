@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  web:
+    container_name: bug-bounty-site
+    image: iqmsoftware/bug-bounty-site:latest
+    ports:
+      - "8000:80"
+      - "8001:443"
+    depends_on:
+      - "db"
+      - "tooling"
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Sup3rdupa
+      - ASPNETCORE_HTTPS_PORT=8001
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+  db:
+    container_name: bug-bounty-db
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    ports:
+      - "1433:1433"
+    environment:
+      MSSQL_SA_PASSWORD: "__YOUR_PASSWORD_HERE"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - "C:/data/bug_bounty_data/data:/var/opt/mssql/data"
+      - "C:/data/bug_bounty_data/log:/var/opt/mssql/log"
+      - "C:/data/bug_bounty_data/secrets:/var/opt/mssql/secrets"
+  tooling:
+    container_name: bug-bounty-tooling
+    image: iqmsoftware/bug-bounty-tooling:latest
+    ports:
+      - "22:22"    
+Sup3rdupa

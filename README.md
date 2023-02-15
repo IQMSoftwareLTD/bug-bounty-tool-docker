@@ -33,7 +33,7 @@ docker-compose pull && docker-compose up -d
 ```
 > If IQM has released an update, running the step above will repull the images, so this is how you update.
 
-## Using the App
+## Usage
 
 Once the app is on your pc, you can start it with the following command in the 'docker-compose.yml' directory:
 

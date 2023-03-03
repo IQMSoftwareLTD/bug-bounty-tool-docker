@@ -3,6 +3,7 @@ services:
   web:
     container_name: bug-bounty-site
     image: iqmsoftware/bug-bounty-site:latest
+    restart: on-failure:3
     ports:
       - "8000:80"
       - "8001:443"
@@ -11,11 +12,15 @@ services:
       - "tooling"
     environment:
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=51%HIaF4
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=BeD07b9u
       - ASPNETCORE_HTTPS_PORT=8001
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    networks:
+      - localnet
   db:
     container_name: bug-bounty-db
+    restart: on-failure:3
+    user: root
     image: "mcr.microsoft.com/mssql/server:2019-latest"
     ports:
       - "1433:1433"
@@ -26,8 +31,15 @@ services:
       - "__YOUR_DATA_LOCATION_HERE__/data:/var/opt/mssql/data"
       - "__YOUR_DATA_LOCATION_HERE__/log:/var/opt/mssql/log"
       - "__YOUR_DATA_LOCATION_HERE__/secrets:/var/opt/mssql/secrets"
+    networks:
+      - localnet
   tooling:
     container_name: bug-bounty-tooling
     image: iqmsoftware/bug-bounty-tooling:latest
     ports:
       - "22:22"    
+    networks:
+      - localnet
+networks:
+  localnet:
+    name: local_net
